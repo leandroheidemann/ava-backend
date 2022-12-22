@@ -1,19 +1,22 @@
 package net.unibave.avaapi.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.springframework.security.core.GrantedAuthority;
+
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_users")
+    @SequenceGenerator(name = "seq_users", sequenceName = "seq_users", allocationSize = 1)
     private Long id;
 
     private String name;
-
     private String email;
-
     private String password;
 
     public User() {
@@ -77,4 +80,9 @@ public class User {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    public List<GrantedAuthority> getRoles() {
+        return List.of();
+    }
+
 }

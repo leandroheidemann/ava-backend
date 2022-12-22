@@ -1,6 +1,27 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/ava
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/ava
     username: postgres
-    password: root
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    open-in-view: true
+  mail:
+    host: ${AVA_MAIL_HOST}
+    port: ${AVA_MAIL_PORT}
+    username: ${AVA_EMAIL_HOST_USERNAME}
+    password: ${AVA_EMAIL_HOST_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+jwt:
+  secret: ${AVA_JWT_SECRET}
+  expiration: 86400000
+
+server:
+  error:
+    include-message: always

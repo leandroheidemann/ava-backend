@@ -1,5 +1,6 @@
 package net.unibave.avaapi.services;
 
+import net.unibave.avaapi.entities.User;
 import net.unibave.avaapi.mappers.UserMapper;
 import net.unibave.avaapi.models.user.UserInputDTO;
 import net.unibave.avaapi.models.user.UserOutputDTO;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,11 +20,13 @@ public class UserService {
 
     private final UserRepository repository;
     private final UserMapper mapper;
+    private final EmailService emailService;
 
     @Autowired
-    public UserService(UserRepository repository, UserMapper mapper) {
+    public UserService(UserRepository repository, UserMapper mapper, EmailService emailService) {
         this.repository = repository;
         this.mapper = mapper;
+        this.emailService = emailService;
     }
 
     public List<UserOutputDTO> findALl() {
@@ -43,6 +47,12 @@ public class UserService {
 
         user = repository.save(user);
 
+        try {
+            emailService.sendConfirmEmail(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return mapper.toOutput(user);
     }
 
@@ -60,5 +70,9 @@ public class UserService {
 
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return repository.findByEmail(email);
     }
 }
