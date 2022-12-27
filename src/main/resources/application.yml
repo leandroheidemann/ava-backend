@@ -17,7 +17,11 @@ spring:
           auth: true
           starttls:
             enable: true
-
+  rabbitmq:
+    host: ${AVA_RABBITMQ_HOST}
+    port: ${AVA_RABBITMQ_PORT}
+    username: ${AVA_RABBITMQ_USERNAME}
+    password: ${AVA_RABBITMQ_PASSWORD}
 jwt:
   secret: ${AVA_JWT_SECRET}
   expiration: 86400000
