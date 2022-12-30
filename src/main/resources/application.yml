@@ -9,8 +9,8 @@ spring:
   mail:
     host: ${AVA_MAIL_HOST}
     port: ${AVA_MAIL_PORT}
-    username: ${AVA_EMAIL_HOST_USERNAME}
-    password: ${AVA_EMAIL_HOST_PASSWORD}
+    username: ${AVA_MAIL_USERNAME}
+    password: ${AVA_MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -25,7 +25,6 @@ spring:
 jwt:
   secret: ${AVA_JWT_SECRET}
   expiration: 86400000
-
 server:
   error:
     include-message: always
