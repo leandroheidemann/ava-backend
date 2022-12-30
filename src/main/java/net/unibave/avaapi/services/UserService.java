@@ -1,6 +1,7 @@
 package net.unibave.avaapi.services;
 
 import net.unibave.avaapi.entities.User;
+import net.unibave.avaapi.mail.MailService;
 import net.unibave.avaapi.mappers.UserMapper;
 import net.unibave.avaapi.models.user.UserInputDTO;
 import net.unibave.avaapi.models.user.UserOutputDTO;
@@ -20,13 +21,13 @@ public class UserService {
 
     private final UserRepository repository;
     private final UserMapper mapper;
-    private final EmailService emailService;
+    private final MailService mailService;
 
     @Autowired
-    public UserService(UserRepository repository, UserMapper mapper, EmailService emailService) {
+    public UserService(UserRepository repository, UserMapper mapper, MailService mailService) {
         this.repository = repository;
         this.mapper = mapper;
-        this.emailService = emailService;
+        this.mailService = mailService;
     }
 
     public List<UserOutputDTO> findALl() {
@@ -48,7 +49,7 @@ public class UserService {
         user = repository.save(user);
 
         try {
-            emailService.sendConfirmEmail(user);
+            mailService.sendConfirmEmail(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
