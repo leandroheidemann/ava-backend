@@ -18,7 +18,7 @@ public class UserTest {
     private UserService userService;
 
     @Test
-    void test() {
+    void testUser() {
         UserInputDTO userInput = new UserInputDTO("User Test", "user@test.com", "123456");
         UserOutputDTO user = userService.save(userInput);
         Assertions.assertNotNull(user);
