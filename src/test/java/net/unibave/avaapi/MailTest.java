@@ -12,8 +12,7 @@ public class MailTest {
     private MailService mailSender;
 
     @Test
-    void contextLoads() {
-        mailSender.sendMail("email@test.com", "Teste", "Teste");
+    void testSendMail() {
+        mailSender.sendMail("email@test.com", "Test", "Test send mail");
     }
-
 }
